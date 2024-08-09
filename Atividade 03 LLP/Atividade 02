@@ -1,1 +1,93 @@
+1. O que é Manipulação de Bits?
+
+A manipulação de bits altera bits individuais em um número binário, usando várias operações, incluindo as operações 
+lógicas AND, OR e XOR, bem como deslocamentos de bits para a esquerda e para a direita.
+
+
+2.Qual a Importância da Manipulação de Bits?
+
+Com o uso da manipulação, o código recebe mais desempenho e eficiência,permitindo que os programadores realizem operações complexas de forma rápida e eficiente.
+
+3.Quais são as Operações Básicas de Manipulação de Bits?
+
+São as AND bit a bit, OR bit a bit, XOR bit a bit e deslocamentos de bits para a esquerda e para a direita.
+
+4. Exemplo em Linguagem C. Crie um programa  que exibe os bits de um número e realiza operações básicas:
+
+#include <stdio.h>
+
+void exibir_bits(unsigned int numero) {
+    unsigned int mascara = 1 << (sizeof(unsigned int) * 8 - 1);
+    printf("Bits do número %u: ", numero);
+
+    while (mascara) {
+        printf("%d", (numero & mascara) ? 1 : 0);
+        mascara >>= 1;
+    }
+    printf("\n");
+}
+
+void realizar_operacao(unsigned int numero1, char operacao, unsigned int numero2) {
+    unsigned int resultado;
+
+    switch (operacao) {
+        case '&':
+            resultado = numero1 & numero2;
+            break;
+        case '|':
+            resultado = numero1 | numero2;
+            break;
+        case '^':
+            resultado = numero1 ^ numero2;
+            break;
+        default:
+            printf("Operação inválida!\n");
+            return;
+    }
+
+    printf("Resultado da operação %c entre %u e %u: %u\n", operacao, numero1, numero2, resultado);
+    exibir_bits(resultado);
+}
+
+int main() {
+    printf("Programa de manipulação de bits\n");
+    printf("--------------------------------\n");
+
+    while (1) {
+        printf("1. Exibir bits de um número\n");
+        printf("2. Realizar operação básica\n");
+        printf("3. Sair\n");
+
+        int escolha;
+        scanf("%d", &escolha);
+
+        switch (escolha) {
+            case 1:
+                unsigned int numero;
+                printf("Digite um número: ");
+                scanf("%u", &numero);
+                exibir_bits(numero);
+                break;
+            case 2:
+                unsigned int numero1, numero2;
+                char operacao;
+                printf("Digite o primeiro número: ");
+                scanf("%u", &numero1);
+                printf("Digite a operação (&, |, ^): ");
+                scanf(" %c", &operacao);
+                printf("Digite o segundo número: ");
+                scanf("%u", &numero2);
+                realizar_operacao(numero1, operacao, numero2);
+                break;
+            case 3:
+                printf("Saindo do programa...\n");
+                return 0;
+            default:
+                printf("Opção inválida!\n");
+        }
+    }
+
+    return 0;
+}
+
 
